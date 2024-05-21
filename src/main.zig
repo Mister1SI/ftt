@@ -1,5 +1,4 @@
 const std = @import("std");
-const dbgPrint = std.debug.print;
 
 pub fn main() !void {
     var gpa: std.heap.GeneralPurposeAllocator(.{}) = .{};
@@ -16,7 +15,7 @@ pub fn main() !void {
     while (args_iter.next()) |arg| {
         if (arg[0] == '-') {
             if (arg.len > 1 and arg[1] == '-') {
-                // Option
+                // Optoin
                 const port: []const u8 = "--port=";
                 if (std.mem.startsWith(u8, arg, port)) {
                     const port_num = arg[7..];
@@ -40,8 +39,8 @@ pub fn main() !void {
     }
 }
 
-fn help() !void {
-    const help_text =
+fn help(writer: anytype) !void {
+    try writer.writeAll(
         \\ftt
         \\File Transfer Tool
         \\usage:
@@ -58,6 +57,5 @@ fn help() !void {
         \\    -r        Start in receiver mode.
         \\
         \\
-    ;
-    try std.io.getStdOut().writeAll(help_text);
+    );
 }
