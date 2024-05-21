@@ -9,6 +9,6 @@ Zig is maybe a plus or minus, I'm not really sure. I only did it in zig because 
 chicken
 
 ### Chase
-Chase is stupid and never does any work. He is a loser and is probably from britan (ew!).
+Chase is stupid and never does any work. He is a loser and is probably from france (ew!).
 
 
