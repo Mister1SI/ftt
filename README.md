@@ -9,6 +9,6 @@ Zig is maybe a plus or minus, I'm not really sure. I only did it in zig because 
 chicken
 
 ### Chase
-Chase is a person
+Chase is the real owner of this project
 
 
