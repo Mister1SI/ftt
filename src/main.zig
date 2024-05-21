@@ -15,7 +15,7 @@ pub fn main() !void {
     while (args_iter.next()) |arg| {
         if (arg[0] == '-') {
             if (arg.len > 1 and arg[1] == '-') {
-                // Optoin
+                // Option
                 const port: []const u8 = "--port=";
                 if (std.mem.startsWith(u8, arg, port)) {
                     const port_num = arg[7..];
