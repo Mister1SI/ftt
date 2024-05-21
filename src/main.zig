@@ -8,7 +8,7 @@ pub fn main() !void {
 
     const stdout = std.io.getStdOut();
     defer stdout.close();
-    // const writer = stdout.writer();
+    const writer = stdout.writer();
 
     _ = args_iter.next();
 
@@ -18,6 +18,15 @@ pub fn main() !void {
                 // Option
             } else {
                 // Flag
+                for (arg, 0..) |c, i| {
+                    if (i == 0) continue;
+                    switch (c) {
+                        'h' => try help(),
+                        'c' => try stdout.writeAll("Launching in client mode.\n"),
+                        's' => try stdout.writeAll("Launching in server mode.\n"),
+                        else => try writer.print("Unrecognized flag {c}.\n", .{c}),
+                    }
+                }
             }
         } else {
             // File
