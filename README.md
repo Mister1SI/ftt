@@ -9,6 +9,8 @@ Zig is maybe a plus or minus-- I'm not really sure. I only did it in Zig because
 Chicken is a delightful meal, in which I take great pleasure consuming.
 
 ### Chase
-Chase is stupid and never does any work. He is a loser and is probably from france (ew!).
+Chase is ok. He has a laptop that he dual boots and he knows german and stuff.
+One problem is he has a metal in his last name.
+Other than that it's fine.
 
 
