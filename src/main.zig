@@ -18,7 +18,11 @@ pub fn main() !void {
                 // Option
                 if (std.mem.startsWith(u8, arg, "--port=")) {
                     const port_num = arg[7..];
-                    try stdout.print("Port: {s}", .{port_num});
+                    try stdout.print("Port: {s}\n", .{port_num});
+                }
+                if (std.mem.startsWith(u8, arg, "--ip=")) {
+                    const ip_address = arg[5..];
+                    try stdout.print("IP Address: {s}\n", .{ip_address});
                 }
             } else {
                 // Flag
