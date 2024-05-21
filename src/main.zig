@@ -2,11 +2,14 @@ const std = @import("std");
 const dbgPrint = std.debug.print;
 
 pub fn main() !void {
-    const allocator = std.heap.page_allocator;
+    var gpa: std.heap.GeneralPurposeAllocator(.{}) = .{};
+    defer _ = gpa.deinit();
+    var sfb = std.heap.stackFallback(64 * 64, gpa.allocator());
+    const allocator = sfb.get();
     var args_iter = try std.process.argsWithAllocator(allocator);
     defer args_iter.deinit();
 
-    const writer = std.io.getStdOut().writer();
+    const stdout = std.io.getStdOut().writer();
 
     _ = args_iter.next();
 
@@ -17,7 +20,7 @@ pub fn main() !void {
                 const port: []const u8 = "--port=";
                 if (std.mem.startsWith(u8, arg, port)) {
                     const port_num = arg[7..];
-                    try writer.print("Port: {s}", .{port_num});
+                    try stdout.print("Port: {s}", .{port_num});
                 }
             } else {
                 // Flag
@@ -25,9 +28,9 @@ pub fn main() !void {
                     if (i == 0) continue;
                     switch (c) {
                         'h' => try help(),
-                        's' => try writer.writeAll("Launching in sender mode.\n"),
-                        'r' => try writer.writeAll("Launching in reciever mode.\n"),
-                        else => try writer.print("Unrecognized flag: {c}.\n", .{c}),
+                        's' => try stdout.writeAll("Launching in sender mode.\n"),
+                        'r' => try stdout.writeAll("Launching in reciever mode.\n"),
+                        else => try stdout.print("Unrecognized flag: {c}.\n", .{c}),
                     }
                 }
             }
@@ -43,7 +46,7 @@ fn help() !void {
         \\File Transfer Tool
         \\usage:
         \\    ftt -s [-flags] [--options] <files>
-        \\    ftt -r 
+        \\    ftt -r
         \\
         \\options:
         \\    --port=   Set the port.
