@@ -10,7 +10,8 @@ pub fn main() !void {
 
     const stdout = std.io.getStdOut().writer();
 
-    _ = args_iter.next();
+    // Assume OS will give program name as first argument and skip it
+    _ = args_iter.skip();
 
     while (args_iter.next()) |arg| {
         if (arg[0] == '-') {
