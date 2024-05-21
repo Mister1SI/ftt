@@ -16,8 +16,7 @@ pub fn main() !void {
         if (arg[0] == '-') {
             if (arg.len > 1 and arg[1] == '-') {
                 // Option
-                const port: []const u8 = "--port=";
-                if (std.mem.startsWith(u8, arg, port)) {
+                if (std.mem.startsWith(u8, arg, "--port=")) {
                     const port_num = arg[7..];
                     try stdout.print("Port: {s}", .{port_num});
                 }
