@@ -25,7 +25,7 @@ pub fn main() !void {
                 for (arg, 0..) |c, i| {
                     if (i == 0) continue;
                     switch (c) {
-                        'h' => try help(),
+                        'h' => try help(stdout),
                         's' => try stdout.writeAll("Launching in sender mode.\n"),
                         'r' => try stdout.writeAll("Launching in receiver mode.\n"),
                         else => try stdout.print("Unrecognized flag: {c}.\n", .{c}),
