@@ -29,7 +29,7 @@ pub fn main() !void {
                     switch (c) {
                         'h' => try help(),
                         's' => try stdout.writeAll("Launching in sender mode.\n"),
-                        'r' => try stdout.writeAll("Launching in reciever mode.\n"),
+                        'r' => try stdout.writeAll("Launching in receiver mode.\n"),
                         else => try stdout.print("Unrecognized flag: {c}.\n", .{c}),
                     }
                 }
@@ -55,7 +55,7 @@ fn help() !void {
         \\flags:
         \\    -h        Open the help menu.
         \\    -s        Start in sender mode.
-        \\    -r        Start in reciever mode.
+        \\    -r        Start in receiver mode.
         \\
         \\
     ;
