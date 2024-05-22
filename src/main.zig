@@ -2,9 +2,9 @@ const std = @import("std");
 
 const Config = struct {
     const Mode = enum { sender, receiver };
-    ip: [4]u8,
-    port: u16,
-    mode: @This().Mode,
+    ip: [4]u8 = .{ 127, 0, 0, 1 },
+    port: u16 = 80,
+    mode: @This().Mode = .sender,
 };
 
 pub fn main() !void {
@@ -21,7 +21,7 @@ pub fn main() !void {
     // Assume OS will give program name as first argument and skip it
     _ = args_iter.skip();
 
-    var config: Config = undefined;
+    var config: Config = .{};
 
     while (args_iter.next()) |arg| {
         if (arg[0] == '-') {
