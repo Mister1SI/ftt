@@ -1,5 +1,12 @@
 const std = @import("std");
 
+const Config = struct {
+    const Mode = enum { sender, receiver };
+    ip: [4]u8,
+    port: u16,
+    mode: @This().Mode,
+};
+
 pub fn main() !void {
     var gpa: std.heap.GeneralPurposeAllocator(.{}) = .{};
     defer _ = gpa.deinit();
@@ -9,17 +16,24 @@ pub fn main() !void {
     defer args_iter.deinit();
 
     const stdout = std.io.getStdOut().writer();
+    const stderr = std.io.getStdErr().writer();
 
     // Assume OS will give program name as first argument and skip it
     _ = args_iter.skip();
+
+    var config: Config = undefined;
 
     while (args_iter.next()) |arg| {
         if (arg[0] == '-') {
             if (arg.len > 1 and arg[1] == '-') {
                 // Option
                 if (std.mem.startsWith(u8, arg, "--port=")) {
-                    const port_num = arg[7..];
-                    try stdout.print("Port: {s}\n", .{port_num});
+                    config.port = std.fmt.parseInt(u16, arg[7..], 10) catch |err|
+                        return stderr.writeAll(switch (err) {
+                        error.Overflow => "error: Invalid port number.\n",
+                        error.InvalidCharacter => "error: Invalid character in port number.\n",
+                    });
+                    try stdout.print("Port: {d}\n", .{config.port});
                 }
                 if (std.mem.startsWith(u8, arg, "--ip=")) {
                     const ip_address = arg[5..];
